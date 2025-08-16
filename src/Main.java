@@ -1,5 +1,6 @@
 import taskManage.TaskManager;
 import tasks.Epic;
+import tasks.Status;
 import tasks.SubTask;
 import tasks.Task;
 
@@ -23,16 +24,19 @@ public class Main {
         taskManager.addSubTask(subTask2);
 
         taskManager.addEpic(epic2);
-        SubTask subTask11 = new SubTask("Подзадача 1.1", "11111", epic2);
+        SubTask subTask11 = new SubTask("Подзадача 1.1", "11111", epic1);
         taskManager.addSubTask(subTask11);
 
-        System.out.println(taskManager.getEpics());
-        System.out.println(taskManager.getTasks());
-        System.out.println(taskManager.getSubTasks());
-        taskManager.deleteEpicById(epic1.getId());
-        taskManager.deleteAllEpics();
-        System.out.println(taskManager.getEpics());
-        System.out.println(taskManager.getTasks());
-        System.out.println(taskManager.getSubTasks());
+        subTask1.setStatus(Status.DONE);
+        subTask11.setStatus(Status.DONE);
+        subTask2.setStatus(Status.NEW);
+        taskManager.updateSubTask(subTask1);
+        taskManager.updateSubTask(subTask2);
+        taskManager.updateSubTask(subTask11);
+
+        System.out.println("Subtask 1: " + subTask1.getStatus());
+        System.out.println("Subtask 2: " + subTask2.getStatus());
+        System.out.println("Subtask 11: " + subTask11.getStatus());
+        System.out.println("Epic 1: " + epic1.getStatus());
     }
 }
