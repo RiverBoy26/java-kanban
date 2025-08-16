@@ -1,8 +1,8 @@
 package tasks;
 
 public class Task {
-    private String taskName;
-    private String Description;
+    private final String taskName;
+    private final String Description;
     private int id;
     private Status status;
 
@@ -15,15 +15,19 @@ public class Task {
     public String getTaskName() {
         return taskName;
     }
+
     public String getDescription() {
         return Description;
     }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public int getId() {
         return id;
     }
+
     public Status getStatus() {
         return status;
     }

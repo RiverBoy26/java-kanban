@@ -102,11 +102,9 @@ public class TaskManager {
             epic.setStatus(Status.NEW);
             return;
         }
-
         boolean allDone = true;
         boolean isNew = true;
         boolean isInProgress = false;
-
         for (Integer subtaskId : allSubTasks) {
             SubTask subtask = subTasks.get(subtaskId);
             if (subtask.getStatus() != Status.DONE) {

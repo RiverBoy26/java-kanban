@@ -34,5 +34,4 @@ public class Epic extends Task {
     public void subtasksClear() {
         subTasksId.clear();
     }
-
 }
