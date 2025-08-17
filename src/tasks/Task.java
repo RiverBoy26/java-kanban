@@ -2,13 +2,13 @@ package tasks;
 
 public class Task {
     private final String taskName;
-    private final String Description;
+    private final String description;
     private int id;
     private Status status;
 
     public Task(String taskName, String description) {
         this.taskName = taskName;
-        this.Description = description;
+        this.description = description;
         this.status = Status.NEW;
     }
 
@@ -17,7 +17,7 @@ public class Task {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setId(int id) {

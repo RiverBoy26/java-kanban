@@ -22,9 +22,9 @@ public class Epic extends Task {
         }
     }
 
-    public void deleteSubTask(SubTask subTask) {
+    public void deleteSubTask(Integer subTaskId) {
         for (Integer subId : subTasksId) {
-            if (subId.equals(subTask.getId())) {
+            if (subId.equals(subTaskId)) {
                 subTasksId.remove(subId);
                 break;
             }

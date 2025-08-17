@@ -27,9 +27,11 @@ public class Main {
         taskManager.updateSubTask(subTask1);
         taskManager.updateSubTask(subTask2);
         taskManager.updateSubTask(subTask11);
+        taskManager.deleteSubTaskById(subTask2.getId());
         System.out.println("Subtask 1: " + subTask1.getStatus());
         System.out.println("Subtask 2: " + subTask2.getStatus());
         System.out.println("Subtask 11: " + subTask11.getStatus());
         System.out.println("Epic 1: " + epic1.getStatus());
+        System.out.println(taskManager.getSubTasks());
     }
 }

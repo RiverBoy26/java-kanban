@@ -141,6 +141,8 @@ public class TaskManager {
         Epic epic = epics.get(epicId);
         ArrayList<Integer> subIds = epic.getSubTasksId();
         subIds.remove(id);
+        subTasks.remove(id);
+        updateEpicStatus(epic);
     }
 
     public void deleteEpicById(int id) {
