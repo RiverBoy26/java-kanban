@@ -71,7 +71,6 @@ class ManagersTest {
 
     @Test
     void historyStoresPreviousVersionOfTask() {
-        HistoryManager history = Managers.getDefaultHistory();
         Task taskOriginal = new Task("text", "o");
         manager.addTask(taskOriginal);
         int id = taskOriginal.getId();
@@ -80,9 +79,9 @@ class ManagersTest {
         Task updated = new Task("updated", "u");
         updated.setId(id);
         manager.updateTask(updated);
-        LinkedList<Task> history1 = history.getHistory();
-        Assertions.assertFalse(history1.isEmpty());
-        Task histTask = history1.getLast();
+        LinkedList<Task> history = manager.getHistory();
+        Assertions.assertFalse(history.isEmpty());
+        Task histTask = history.getLast();
         Assertions.assertEquals("text", histTask.getTaskName());
         Assertions.assertEquals("o", histTask.getDescription());
     }
