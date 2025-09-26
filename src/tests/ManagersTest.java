@@ -126,7 +126,7 @@ class ManagersTest {
     }
 
     @Test
-    void InHistoryManagerShouldBeAddAndFindTask() {
+    void inHistoryManagerShouldBeAddAndFindTask() {
         Task t1 = new Task("n","d");
         manager.addTask(t1);
         Epic t2 = new Epic("n","d");
@@ -142,7 +142,7 @@ class ManagersTest {
     }
 
     @Test
-    void InHistoryManagerShouldBeRemoveTask() {
+    void inHistoryManagerShouldBeRemoveTask() {
         Task t1 = new Task("n","d");
         manager.addTask(t1);
         Epic t2 = new Epic("n","d");
@@ -157,7 +157,7 @@ class ManagersTest {
     }
 
     @Test
-    void HistoryShouldBeUnlimited() {
+    void historyShouldBeUnlimited() {
         for (int i = 1; i <= 100; i++) {
             Task task = new Task( "Task " + i, "Description " + i);
             manager.addTask(task);
@@ -167,7 +167,7 @@ class ManagersTest {
     }
 
     @Test
-    void InHistoryManagerRemoveNoneTask() {
+    void inHistoryManagerRemoveNoneTask() {
         Task t1 = new Task("n","d");
         manager.addTask(t1);
         manager.getTask(t1.getId());
@@ -176,13 +176,13 @@ class ManagersTest {
     }
 
     @Test
-    void InHistoryManagerRemoveFromEmptyHistory() {
+    void inHistoryManagerRemoveFromEmptyHistory() {
         historyManager.remove(0);
         Assertions.assertEquals(0, historyManager.getHistory().size());
     }
 
     @Test
-    public void InHistoryManagerRemoveOnlyOneTask() {
+    public void inHistoryManagerRemoveOnlyOneTask() {
         Task t1 = new Task("n","d");
         manager.addTask(t1);
         manager.getTask(t1.getId());
