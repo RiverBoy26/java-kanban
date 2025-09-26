@@ -3,15 +3,14 @@ package tests;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import taskManage.InMemoryHistoryManager;
-import taskManage.InMemoryTaskManager;
-import taskManage.Managers;
+import manage.InMemoryHistoryManager;
+import manage.InMemoryTaskManager;
+import manage.Managers;
 import tasks.Epic;
 import tasks.Status;
 import tasks.SubTask;
 import tasks.Task;
 
-import java.util.LinkedList;
 import java.util.List;
 
 class ManagersTest {

@@ -1,4 +1,4 @@
-package taskManage;
+package manage;
 
 import tasks.Epic;
 import tasks.Status;
@@ -7,7 +7,6 @@ import tasks.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {

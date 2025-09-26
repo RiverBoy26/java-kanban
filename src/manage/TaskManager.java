@@ -1,11 +1,10 @@
-package taskManage;
+package manage;
 
 import tasks.Epic;
 import tasks.SubTask;
 import tasks.Task;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public interface TaskManager {

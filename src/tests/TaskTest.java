@@ -2,7 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import taskManage.InMemoryTaskManager;
+import manage.InMemoryTaskManager;
 import tasks.Task;
 
 import java.util.List;

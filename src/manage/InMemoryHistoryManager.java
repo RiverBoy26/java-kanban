@@ -1,7 +1,5 @@
-package taskManage;
+package manage;
 
-import tasks.Epic;
-import tasks.SubTask;
 import tasks.Task;
 import java.util.*;
 
