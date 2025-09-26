@@ -31,6 +31,4 @@ class TaskTest {
         Assertions.assertEquals(1, tasks.size(), "Неверное количество задач.");
         Assertions.assertEquals(task, tasks.getFirst(), "Задачи не совпадают.");
     }
-
-
 }

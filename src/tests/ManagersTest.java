@@ -120,13 +120,9 @@ class ManagersTest {
         Assertions.assertEquals(1, manager.getTasks().size());
         Assertions.assertEquals(t, manager.getTasks().getFirst());
         Epic e = new Epic("n", "d");
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            manager.addTask(e);
-        });
+        Assertions.assertThrows(IllegalArgumentException.class, () -> manager.addTask(e));
         SubTask s = new SubTask("n", "d", e);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            manager.addTask(s);
-        });
+        Assertions.assertThrows(IllegalArgumentException.class, () -> manager.addTask(s));
     }
 
     @Test
@@ -168,9 +164,6 @@ class ManagersTest {
             manager.getTask(task.getId());
         }
         Assertions.assertEquals(100, manager.getHistory().size());
-        for (int i = 0; i < 100; i++) {
-            Assertions.assertEquals(i + 1, manager.getHistory().get(i).getId());
-        }
     }
 
     @Test

@@ -41,7 +41,7 @@ class EpicTest {
 
         Assertions.assertNotNull(epics, "Эпики не возвращаются.");
         Assertions.assertEquals(1, epics.size(), "Неверное количество эпиков.");
-        Assertions.assertEquals(epic, epics.get(0), "Эпики не совпадают.");
+        Assertions.assertEquals(epic, epics.getFirst(), "Эпики не совпадают.");
     }
 
     @Test
@@ -58,8 +58,6 @@ class EpicTest {
         inMemoryTaskManager.addSubTask(invalidSubtask);
         int epicId = epic2.getId();
         invalidSubtask.setId(epicId);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            inMemoryTaskManager.updateSubTask(invalidSubtask);
-        });
+        Assertions.assertThrows(IllegalArgumentException.class, () -> inMemoryTaskManager.updateSubTask(invalidSubtask));
     }
 }
