@@ -1,11 +1,10 @@
-package tests;
+package test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import taskManage.InMemoryTaskManager;
-import taskManage.Managers;
+import manage.InMemoryTaskManager;
 import tasks.Epic;
 import tasks.SubTask;
 import tasks.Task;

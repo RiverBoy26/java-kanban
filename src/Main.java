@@ -1,7 +1,6 @@
-import taskManage.InMemoryTaskManager;
-import taskManage.TaskManager;
+import manage.InMemoryTaskManager;
+import manage.TaskManager;
 import tasks.Epic;
-import tasks.Status;
 import tasks.SubTask;
 import tasks.Task;
 
@@ -25,8 +24,10 @@ public class Main {
         taskManager.getTask(task1.getId());
         taskManager.getTask(task1.getId());
         taskManager.getTask(task1.getId());
-        taskManager.getTask(task1.getId());
-        taskManager.getTask(task1.getId());
+        taskManager.getEpic(epic1.getId());
+        taskManager.getEpic(epic2.getId());
+        taskManager.getSubTask(subTask1.getId());
+        taskManager.getEpic(epic1.getId());
         taskManager.getTask(task1.getId());
         taskManager.getTask(task1.getId());
         taskManager.getTask(task2.getId());

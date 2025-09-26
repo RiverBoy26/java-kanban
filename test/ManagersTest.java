@@ -1,24 +1,26 @@
-package tests;
+package test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import taskManage.HistoryManager;
-import taskManage.InMemoryTaskManager;
-import taskManage.Managers;
+import manage.InMemoryHistoryManager;
+import manage.InMemoryTaskManager;
+import manage.Managers;
 import tasks.Epic;
 import tasks.Status;
 import tasks.SubTask;
 import tasks.Task;
 
-import java.util.LinkedList;
+import java.util.List;
 
 class ManagersTest {
     private InMemoryTaskManager manager;
+    private InMemoryHistoryManager historyManager;
 
     @BeforeEach
     void beforeEach() {
         manager = new InMemoryTaskManager();
+        historyManager = new InMemoryHistoryManager();
     }
 
     @Test
@@ -79,7 +81,7 @@ class ManagersTest {
         Task updated = new Task("updated", "u");
         updated.setId(id);
         manager.updateTask(updated);
-        LinkedList<Task> history = manager.getHistory();
+        List<Task> history = manager.getHistory();
         Assertions.assertFalse(history.isEmpty());
         Task histTask = history.getLast();
         Assertions.assertEquals("text", histTask.getTaskName());
@@ -118,12 +120,73 @@ class ManagersTest {
         Assertions.assertEquals(1, manager.getTasks().size());
         Assertions.assertEquals(t, manager.getTasks().getFirst());
         Epic e = new Epic("n", "d");
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            manager.addTask(e);
-        });
+        Assertions.assertThrows(IllegalArgumentException.class, () -> manager.addTask(e));
         SubTask s = new SubTask("n", "d", e);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            manager.addTask(s);
-        });
+        Assertions.assertThrows(IllegalArgumentException.class, () -> manager.addTask(s));
+    }
+
+    @Test
+    void inHistoryManagerShouldBeAddAndFindTask() {
+        Task t1 = new Task("n","d");
+        manager.addTask(t1);
+        Epic t2 = new Epic("n","d");
+        manager.addEpic(t2);
+        SubTask t3 = new SubTask("n","d", t2);
+        manager.addSubTask(t3);
+        manager.getTask(t1.getId());
+        manager.getEpic(t2.getId());
+        manager.getSubTask(t3.getId());
+        Assertions.assertEquals(manager.getHistory().getFirst(), t1);
+        Assertions.assertTrue(manager.getHistory().contains(t2));
+        Assertions.assertEquals(manager.getHistory().getLast(), t3);
+    }
+
+    @Test
+    void inHistoryManagerShouldBeRemoveTask() {
+        Task t1 = new Task("n","d");
+        manager.addTask(t1);
+        Epic t2 = new Epic("n","d");
+        manager.addEpic(t2);
+        manager.getTask(t1.getId());
+        manager.getTask(t1.getId());
+        manager.getEpic(t2.getId());
+        Assertions.assertEquals(manager.getHistory().getFirst(), t1);
+        manager.getTask(t1.getId());
+        Assertions.assertEquals(manager.getHistory().getFirst(), t2);
+        Assertions.assertEquals(manager.getHistory().getLast(), t1);
+    }
+
+    @Test
+    void historyShouldBeUnlimited() {
+        for (int i = 1; i <= 100; i++) {
+            Task task = new Task("Task " + i, "Description " + i);
+            manager.addTask(task);
+            manager.getTask(task.getId());
+        }
+        Assertions.assertEquals(100, manager.getHistory().size());
+    }
+
+    @Test
+    void inHistoryManagerRemoveNoneTask() {
+        Task t1 = new Task("n","d");
+        manager.addTask(t1);
+        manager.getTask(t1.getId());
+        historyManager.remove(99);
+        Assertions.assertEquals(1, manager.getHistory().size());
+    }
+
+    @Test
+    void inHistoryManagerRemoveFromEmptyHistory() {
+        historyManager.remove(0);
+        Assertions.assertEquals(0, historyManager.getHistory().size());
+    }
+
+    @Test
+    public void inHistoryManagerRemoveOnlyOneTask() {
+        Task t1 = new Task("n","d");
+        manager.addTask(t1);
+        manager.getTask(t1.getId());
+        historyManager.remove(1);
+        Assertions.assertEquals(0, historyManager.getHistory().size());
     }
 }
