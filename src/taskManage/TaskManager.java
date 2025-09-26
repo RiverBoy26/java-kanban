@@ -47,5 +47,5 @@ public interface TaskManager {
 
     void deleteEpicById(int id);
 
-    LinkedList<Task> getHistory();
+    List<Task> getHistory();
 }
