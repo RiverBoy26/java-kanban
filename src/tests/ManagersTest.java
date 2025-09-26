@@ -159,7 +159,7 @@ class ManagersTest {
     @Test
     void historyShouldBeUnlimited() {
         for (int i = 1; i <= 100; i++) {
-            Task task = new Task( "Task " + i, "Description " + i);
+            Task task = new Task("Task " + i, "Description " + i);
             manager.addTask(task);
             manager.getTask(task.getId());
         }
