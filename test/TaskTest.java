@@ -1,8 +1,8 @@
-package tests;
+package test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import taskManage.InMemoryTaskManager;
+import manage.InMemoryTaskManager;
 import tasks.Task;
 
 import java.util.List;
@@ -31,6 +31,4 @@ class TaskTest {
         Assertions.assertEquals(1, tasks.size(), "Неверное количество задач.");
         Assertions.assertEquals(task, tasks.getFirst(), "Задачи не совпадают.");
     }
-
-
 }

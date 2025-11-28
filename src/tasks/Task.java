@@ -1,10 +1,13 @@
 package tasks;
 
+import java.time.LocalDateTime;
+
 public class Task {
     private final String taskName;
     private final String description;
-    private int id;
+    private int id = 0;
     private Status status;
+    private LocalDateTime startTime = null;
 
     public Task(String taskName, String description) {
         this.taskName = taskName;
@@ -38,15 +41,23 @@ public class Task {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o){
+        if (this == o) {
             return true;
         }
-        if (!(o instanceof Task other)){
+        if (!(o instanceof Task other)) {
             return false;
         }
-        if (this.id == 0 || other.id == 0){
+        if (this.id == 0 || other.id == 0) {
             return false;
         }
         return this.id == other.id;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 }

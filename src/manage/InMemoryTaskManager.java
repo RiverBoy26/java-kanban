@@ -1,13 +1,14 @@
-package taskManage;
+package manage;
 
 import tasks.Epic;
 import tasks.Status;
 import tasks.SubTask;
 import tasks.Task;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
@@ -18,13 +19,19 @@ public class InMemoryTaskManager implements TaskManager {
     private final HistoryManager historyTasks = Managers.getDefaultHistory();
 
     @Override
-    public ArrayList<Task> getTasks() { return new ArrayList<>(tasks.values()); }
+    public ArrayList<Task> getTasks() {
+        return new ArrayList<>(tasks.values());
+    }
 
     @Override
-    public ArrayList<SubTask> getSubTasks() { return new ArrayList<>(subTasks.values()); }
+    public ArrayList<SubTask> getSubTasks() {
+        return new ArrayList<>(subTasks.values());
+    }
 
     @Override
-    public ArrayList<Epic> getEpics() { return new ArrayList<>(epics.values()); }
+    public ArrayList<Epic> getEpics() {
+        return new ArrayList<>(epics.values());
+    }
 
     @Override
     public void deleteAllTasks() {
@@ -86,6 +93,9 @@ public class InMemoryTaskManager implements TaskManager {
         if (task.getClass() == Task.class) {
             id += 1;
             task.setId(id);
+            if (task.getStartTime() == null) {
+                task.setStartTime(LocalDateTime.now());
+            }
             tasks.put(id, task);
         } else {
             throw new IllegalArgumentException("This is not task!");
@@ -94,9 +104,12 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void addSubTask(SubTask subTask) {
-        if (epics.containsKey(subTask.getEpicId())){
+        if (epics.containsKey(subTask.getEpicId())) {
             id += 1;
             subTask.setId(id);
+            if (subTask.getStartTime() == null) {
+                subTask.setStartTime(LocalDateTime.now());
+            }
             subTasks.put(id, subTask);
             Epic epic = epics.get(subTask.getEpicId());
             epic.getSubTasksId().add(subTask.getId());
@@ -113,7 +126,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateTask(Task task) {
-        if (tasks.containsKey(task.getId())){
+        if (tasks.containsKey(task.getId())) {
             tasks.put(task.getId(), task);
         } else {
             throw new IllegalArgumentException("This task is not contain to tasks!");
@@ -121,7 +134,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void updateSubTask(SubTask subtask){
+    public void updateSubTask(SubTask subtask) {
         if (subtask.getEpicId() == subtask.getId()) {
             throw new IllegalArgumentException("epicId != subtaskId");
         }
@@ -168,7 +181,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void updateEpic(Epic epic){
+    public void updateEpic(Epic epic) {
         if (epics.containsKey(epic.getId())) {
             epics.put(epic.getId(), epic);
         }
@@ -207,7 +220,16 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public LinkedList<Task> getHistory() {
+    public List<Task> getHistory() {
         return historyTasks.getHistory();
+    }
+
+    public List<Task> getPrioritizedTasks() {
+        List<Task> allTasks = new ArrayList<>();
+        allTasks.addAll(tasks.values());
+        allTasks.addAll(subTasks.values());
+
+        allTasks.sort(Comparator.comparing(Task::getStartTime, Comparator.nullsLast(Comparator.naturalOrder())));
+        return allTasks;
     }
 }
