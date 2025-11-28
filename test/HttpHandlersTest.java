@@ -110,13 +110,14 @@ public class HttpHandlersTest {
                 HttpResponse.BodyHandlers.ofString()
         );
 
-        assertEquals(201, createResp.statusCode(), "Не удалось создать исходную задачу");
+        assertEquals(201, createResp.statusCode(), "Удалось создать исходную задачу");
 
         // 2) Получаем ID созданной задачи
         Task created = manager.getTasks().get(0);
+        int id = created.getId();
 
         Task t = new Task("Updated", "xxx");
-        t.setId(1);
+        t.setId(id);
 
         HttpResponse<String> resp = client.send(
                 HttpRequest.newBuilder()
@@ -127,6 +128,16 @@ public class HttpHandlersTest {
         );
 
         assertEquals(200, resp.statusCode());
+
+        HttpResponse<String> updatedResp = client.send(
+                HttpRequest.newBuilder()
+                        .uri(URI.create(url("/tasks/" + id)))
+                        .GET()
+                        .build(),
+                HttpResponse.BodyHandlers.ofString()
+        );
+
+        assertTrue(updatedResp.body().contains("Updated"));
     }
 
     @Test
