@@ -59,7 +59,8 @@ public class HttpHandlersTest {
         return "http://localhost:" + port + path;
     }
 
-    @Test @Order(1)
+    @Test
+    @Order(1)
     void createTaskTest() throws Exception {
         Task t = new Task("A", "B");
         String body = gson.toJson(t);
@@ -74,7 +75,8 @@ public class HttpHandlersTest {
         assertEquals(201, resp.statusCode());
     }
 
-    @Test @Order(2)
+    @Test
+    @Order(2)
     void getTaskByIdTest() throws Exception {
         HttpResponse<String> resp = client.send(
                 HttpRequest.newBuilder().uri(URI.create(url("/tasks/1"))).GET().build(),
@@ -85,7 +87,8 @@ public class HttpHandlersTest {
         assertTrue(resp.body().contains("A"));
     }
 
-    @Test @Order(3)
+    @Test
+    @Order(3)
     void getAllTasksTest() throws Exception {
         HttpResponse<String> resp = client.send(
                 HttpRequest.newBuilder().uri(URI.create(url("/tasks"))).GET().build(),
@@ -95,7 +98,8 @@ public class HttpHandlersTest {
         assertEquals(200, resp.statusCode());
     }
 
-    @Test @Order(4)
+    @Test
+    @Order(4)
     void updateTaskTest() throws Exception {
         Task t = new Task("Updated", "xxx");
         t.setId(1);
@@ -111,7 +115,8 @@ public class HttpHandlersTest {
         assertEquals(200, resp.statusCode());
     }
 
-    @Test @Order(5)
+    @Test
+    @Order(5)
     void deleteTaskTest() throws Exception {
         HttpResponse<String> resp = client.send(
                 HttpRequest.newBuilder()
@@ -124,7 +129,8 @@ public class HttpHandlersTest {
         assertEquals(200, resp.statusCode());
     }
 
-    @Test @Order(6)
+    @Test
+    @Order(6)
     void createSubtaskTest() throws Exception {
         // 1) Создаём Epic, иначе SubTask некуда привязывать
         Epic epic = new Epic("E1", "desc");
@@ -159,7 +165,8 @@ public class HttpHandlersTest {
         assertEquals(201, resp.statusCode());
     }
 
-    @Test @Order(7)
+    @Test
+    @Order(7)
     void getSubtaskByIdTest() throws Exception {
         HttpResponse<String> resp = client.send(
                 HttpRequest.newBuilder()
@@ -172,7 +179,8 @@ public class HttpHandlersTest {
         assertEquals(200, resp.statusCode());
     }
 
-    @Test @Order(8)
+    @Test
+    @Order(8)
     void createEpicTest() throws Exception {
         Epic epic = new Epic("Epic1", "desc");
         String body = gson.toJson(epic);
@@ -188,7 +196,8 @@ public class HttpHandlersTest {
         assertEquals(201, resp.statusCode());
     }
 
-    @Test @Order(9)
+    @Test
+    @Order(9)
     void getEpicByIdTest() throws Exception {
         HttpResponse<String> resp = client.send(
                 HttpRequest.newBuilder()
@@ -201,7 +210,8 @@ public class HttpHandlersTest {
         assertEquals(200, resp.statusCode());
     }
 
-    @Test @Order(10)
+    @Test
+    @Order(10)
     void historyTest() throws Exception {
         HttpResponse<String> resp = client.send(
                 HttpRequest.newBuilder()
