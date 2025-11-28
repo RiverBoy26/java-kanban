@@ -1,10 +1,13 @@
 package tasks;
 
+import java.time.LocalDateTime;
+
 public class Task {
     private final String taskName;
     private final String description;
-    private int id;
+    private int id = 0;
     private Status status;
+    private LocalDateTime startTime = null;
 
     public Task(String taskName, String description) {
         this.taskName = taskName;
@@ -48,5 +51,13 @@ public class Task {
             return false;
         }
         return this.id == other.id;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 }

@@ -5,7 +5,9 @@ import tasks.Status;
 import tasks.SubTask;
 import tasks.Task;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -91,6 +93,9 @@ public class InMemoryTaskManager implements TaskManager {
         if (task.getClass() == Task.class) {
             id += 1;
             task.setId(id);
+            if (task.getStartTime() == null) {
+                task.setStartTime(LocalDateTime.now());
+            }
             tasks.put(id, task);
         } else {
             throw new IllegalArgumentException("This is not task!");
@@ -102,6 +107,9 @@ public class InMemoryTaskManager implements TaskManager {
         if (epics.containsKey(subTask.getEpicId())) {
             id += 1;
             subTask.setId(id);
+            if (subTask.getStartTime() == null) {
+                subTask.setStartTime(LocalDateTime.now());
+            }
             subTasks.put(id, subTask);
             Epic epic = epics.get(subTask.getEpicId());
             epic.getSubTasksId().add(subTask.getId());
@@ -214,5 +222,14 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public List<Task> getHistory() {
         return historyTasks.getHistory();
+    }
+
+    public List<Task> getPrioritizedTasks() {
+        List<Task> allTasks = new ArrayList<>();
+        allTasks.addAll(tasks.values());
+        allTasks.addAll(subTasks.values());
+
+        allTasks.sort(Comparator.comparing(Task::getStartTime, Comparator.nullsLast(Comparator.naturalOrder())));
+        return allTasks;
     }
 }
