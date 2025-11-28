@@ -27,7 +27,7 @@ public abstract class BaseHttpHandler implements HttpHandler {
             try {
                 exchange.close();
             } catch (Exception ignored) {
-                
+                // ignored
             }
         }
     }
