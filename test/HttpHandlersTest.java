@@ -79,7 +79,7 @@ public class HttpHandlersTest {
     @Order(2)
     void getTaskByIdTest() throws Exception {
         HttpResponse<String> resp = client.send(
-                HttpRequest.newBuilder().uri(URI.create(url("/tasks/1"))).GET().build(),
+                HttpRequest.newBuilder().uri(URI.create(url("/tasks"))).GET().build(),
                 HttpResponse.BodyHandlers.ofString()
         );
 
@@ -101,6 +101,20 @@ public class HttpHandlersTest {
     @Test
     @Order(4)
     void updateTaskTest() throws Exception {
+        Task base = new Task("Original", "desc");
+        HttpResponse<String> createResp = client.send(
+                HttpRequest.newBuilder()
+                        .uri(URI.create(url("/tasks")))
+                        .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(base)))
+                        .build(),
+                HttpResponse.BodyHandlers.ofString()
+        );
+
+        assertEquals(201, createResp.statusCode(), "Не удалось создать исходную задачу");
+
+        // 2) Получаем ID созданной задачи
+        Task created = manager.getTasks().get(0);
+
         Task t = new Task("Updated", "xxx");
         t.setId(1);
 
